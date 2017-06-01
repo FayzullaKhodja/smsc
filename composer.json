@@ -12,5 +12,10 @@
             "email": "fayzulla@khodja.uz"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload-dev": {
+        "psr-4": {
+            "Khodja\\Smsc\\": "src/"
+        }
+    }
 }
