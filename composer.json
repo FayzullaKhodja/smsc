@@ -3,7 +3,7 @@
     "description": "SMSC -  позволяет рассылать сообщения через ваши проекты и сервисы по протоколам HTTP/HTTPS, SMTP и SMPP.",
     "type": "library",
     "require": {
-        "skip": "1.0.0"
+        "php": ">=5.3.0"
     },
     "license": "MIT",
     "authors": [
@@ -12,6 +12,5 @@
             "email": "fayzulla@khodja.uz"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }
