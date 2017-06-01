@@ -14,7 +14,7 @@ Setting up the SmscRu service:
 ```php
 // config/services.php
 ...
-	'smsc' => [
+'smsc' => [
         'login' => env('SMSC_LOGIN', 'login'),
         'password' => env('SMSC_PASSWORD', 'mypass'),
         'post' => 1,             // использовать метод POST

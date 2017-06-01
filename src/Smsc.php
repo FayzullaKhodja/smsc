@@ -284,8 +284,9 @@ class Smsc {
                     fclose($fp);
                 }
             }
-            else
+            else {
                 $ret = file_get_contents($url);
+            }
         }
 
         return $ret;
