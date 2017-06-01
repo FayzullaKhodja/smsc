@@ -1,0 +1,17 @@
+{
+    "name": "khodja/smsc",
+    "description": "SMSC -  позволяет рассылать сообщения через ваши проекты и сервисы по протоколам HTTP/HTTPS, SMTP и SMPP.",
+    "type": "library",
+    "require": {
+        "skip": "1.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fayzulla Khodja",
+            "email": "fayzulla@khodja.uz"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
