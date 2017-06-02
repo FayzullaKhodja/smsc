@@ -12,7 +12,7 @@
             "email": "fayzulla@khodja.uz"
         }
     ],
-    "autoload-dev": {
+    "autoload": {
         "psr-4": {
             "Khodja\\Smsc\\": "src/"
         }
