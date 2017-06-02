@@ -2,9 +2,10 @@
 
 namespace Khodja\Smsc;
 
-use Config;
+use Illuminate\Support\Facades\Config;
 
-class Smsc {
+class Smsc
+{
 
     /**
      * Функция отправки SMS
