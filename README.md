@@ -12,16 +12,16 @@ composer require khodja/smsc
 Register the provider directly in your app configuration file config/app.php
 ```php
 'providers' => [
-	// ...
-	Khodja\Smsc\SmscServiceProvider::class, 
+    // ...
+    Khodja\Smsc\SmscServiceProvider::class, 
 ];
 ```
 
 Add the facade aliases in the same file:
 ```php
 'aliases' => [
-	...
-	'Smsc' => Khodja\Smsc\Facades\Smsc::class
+    ...
+    'Smsc' => Khodja\Smsc\Facades\Smsc::class
 ];
 ```
 
@@ -61,6 +61,28 @@ Then use the sendMessage method.
 SmsC::send('998901234567', 'Your activation code: 12134');
 ```
 
+SMTP version for sending message
+```php
+SmsC::sendSmsMail('998901234567', 'Hi Bro!');
+```
+
+Get balance method
+```php
+SmsC::getBalance();
+```
+
+Get sms cost method
+```php
+SmsC::getSmsCost('998901234567', 'Hi Bro!');
+```
+
+Get sms status by id and phone number
+```php
+SmsC::getSmsCost('12', '99890123456');
+```
+
+
+
 ## Support
 
 Feel free to post your issues in the issues section.
@@ -74,5 +96,4 @@ If you discover any security related issues, please email fayzulla@khodja.uz ins
 This library is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 Some of this documentation is coming from the official documentation. You can find it completely on the [SMSc](https://smsc.ru/api/) Website.
-
 
