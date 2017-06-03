@@ -9,7 +9,25 @@
 composer require khodja/smsc
 ```
 
-Setting up the SmscRu service:
+Register the provider directly in your app configuration file config/app.php
+```php
+'providers' => [
+	// ...
+	Khodja\Smsc\SmscServiceProvider::class, 
+];
+```
+
+Add the facade aliases in the same file:
+```php
+'aliases' => [
+	...
+	'Smsc' => Khodja\Smsc\Facades\Smsc::class
+];
+```
+
+### Package Configuration
+
+Setting up the SmscRu service in your app configuration file config/services.php:
 
 ```php
 // config/services.php
@@ -30,7 +48,6 @@ Setting up the SmscRu service:
 
 ## Usage
 
-### Direct Use
 
 Use the Smsc class where you want to use it.
 
@@ -54,6 +71,8 @@ If you discover any security related issues, please email fayzulla@khodja.uz ins
 
 ## License
 
-MIT
+This library is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+Some of this documentation is coming from the official documentation. You can find it completely on the [SMSc](https://smsc.ru/api/) Website.
 
 

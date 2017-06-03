@@ -33,7 +33,7 @@ class Smsc
 
         // (id, cnt, cost, balance) или (id, -error)
 
-        if (Config::get('smsc.debug')) {
+        if (Config::get('services.smsc.debug')) {
             if ($m[1] > 0)
                 echo "Сообщение отправлено успешно. ID: $m[0], всего SMS: $m[1], стоимость: $m[2], баланс: $m[3].\n";
             else
@@ -59,7 +59,7 @@ class Smsc
     
     public static function sendSmsMail($phones, $message, $translit = 0, $time = 0, $id = 0, $format = 0, $sender = "")
     {
-        return mail("send@send.smsc.ru", "", Config::get('smsc.charset').":".Config::get('smsc.password').":$id:$time:$translit,$format,$sender:$phones:$message", "From: ".Config::get('smsc.smtp_from')."\nContent-Type: text/plain; charset=".Config::get('smsc.charset')."\n");
+        return mail("send@send.smsc.ru", "", Config::get('services.smsc.charset').":".Config::get('services.smsc.password').":$id:$time:$translit,$format,$sender:$phones:$message", "From: ".Config::get('services.smsc.smtp_from')."\nContent-Type: text/plain; charset=".Config::get('services.smsc.charset')."\n");
     }
 
     /**
@@ -84,7 +84,7 @@ class Smsc
 
         // (cost, cnt) или (0, -error)
 
-        if (Config::get('smsc.debug')) {
+        if (Config::get('services.smsc.debug')) {
             if ($m[1] > 0) {
                 return "Стоимость рассылки: $m[0]. Всего SMS: $m[1]\n";
             }
@@ -119,6 +119,7 @@ class Smsc
      *   если $all = 1 или $all = 2, то в ответ добавляется <ID сообщения>
      *   либо массив (0, -<код ошибки>) в случае ошибки
      */
+    
     public static function getStatus($id, $phone, $all = 0)
     {
         $m = (new self)->sendCMD("status", "phone=".urlencode($phone)."&id=".urlencode($id)."&all=".(int)$all);
@@ -126,7 +127,7 @@ class Smsc
         // (status, time, err, ...) или (0, -error)
 
         if (!strpos($id, ",")) {
-            if (Config::get('smsc.debug') )
+            if (Config::get('services.smsc.debug') )
                 if ($m[1] != "" && $m[1] >= 0)
                     echo "Статус SMS = $m[0]", $m[1] ? ", время изменения статуса - ".date("d.m.Y H:i:s", $m[1]) : "", "\n";
                 else
@@ -154,7 +155,7 @@ class Smsc
     {
         $m = (new self)->sendCMD("balance"); // (balance) или (0, -error)
 
-        if (Config::get('smsc.debug')) {
+        if (Config::get('services.smsc.debug')) {
             if (!isset($m[1])) {
                 return "Сумма на счете: ". $m[0] ."\n";
             }
@@ -178,7 +179,7 @@ class Smsc
      */
     public function sendCMD($cmd, $arg = "", $files = [])
     {
-        $url = $_url = (Config::get('smsc.charset') ? "https" : "http")."://smsc.ru/sys/$cmd.php?login=".urlencode(Config::get('smsc.login'))."&psw=".urlencode(Config::get('smsc.password'))."&fmt=1&charset=".Config::get('smsc.charset')."&".$arg;
+        $url = $_url = (Config::get('services.smsc.charset') ? "https" : "http")."://smsc.ru/sys/$cmd.php?login=".urlencode(Config::get('services.smsc.login'))."&psw=".urlencode(Config::get('services.smsc.password'))."&fmt=1&charset=".Config::get('services.smsc.charset')."&".$arg;
 
         $i = 0;
         do {
@@ -190,7 +191,7 @@ class Smsc
         while ($ret == "" && $i < 5);
 
         if ($ret == "") {
-            if (Config::get('smsc.debug'))
+            if (Config::get('services.smsc.debug'))
                 echo "Ошибка чтения адреса: $url\n";
 
             $ret = ","; // фиктивный ответ
@@ -222,7 +223,7 @@ class Smsc
     function readUrl($url, $files, $tm = 5)
     {
         $ret = "";
-        $post = Config::get('smsc.post') || strlen($url) > 2000 || $files;
+        $post = Config::get('services.smsc.post') || strlen($url) > 2000 || $files;
 
         if (function_exists("curl_init"))
         {
@@ -262,11 +263,11 @@ class Smsc
             $ret = curl_exec($c);
         }
         elseif ($files) {
-            if (Config::get('smsc.debug'))
+            if (Config::get('services.smsc.debug'))
                 echo "Не установлен модуль curl для передачи файлов\n";
         }
         else {
-            if (!Config::get('smsc.https') && function_exists("fsockopen"))
+            if (!Config::get('services.smsc.https') && function_exists("fsockopen"))
             {
                 $m = parse_url($url);
 

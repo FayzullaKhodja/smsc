@@ -23,6 +23,9 @@ class SmscServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Config
+        $this->mergeConfigFrom( __DIR__.'/Config/services.php', 'services');
+
         $this->app->singleton('smsc', function($app) {
             return new Smsc;
         });
